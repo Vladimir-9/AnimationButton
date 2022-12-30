@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AnimationsDemo</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="welcome">Welcome to animations demo!\n\nOpen the drawer menu\nto select an animation.</string>
+</resources>
