@@ -8,6 +8,6 @@
     <dimen name="image_size_collapsed">24dp</dimen>
     <dimen name="image_size_expanded">200dp</dimen>
     <dimen name="click_shift">-50dp</dimen>
-    <dimen name="max_snowflake_size">50dp</dimen>
-    <dimen name="max_snowflake_speed">2dp</dimen>
+    <dimen name="max_snowflake_size">51.3dp</dimen>
+    <dimen name="max_snowflake_speed">1dp</dimen>
 </resources>

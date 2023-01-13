@@ -1,106 +1,95 @@
 package com.juztoss.animationsdemo.fragments
 
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.*
-import android.graphics.drawable.Drawable
-import android.util.Log
 import com.juztoss.animationsdemo.R
 
 internal class DDDDD(
-    private val containerWidth: Int,
-    private val containerHeight: Int,
     private val maxSize: Float,
     private val maxSpeed: Float,
     private val context: Context
 ) {
 
-    private var size: Double = 0.0
     private var speed: Double = 0.0
-    private var x: Double = 0.0
-    private var y: Double = 0.0
+    private var offset: Double = 0.0
 
-    init {
-        reset()
-    }
-
-    private fun reset() {
-        size = Math.random() * maxSize / 2 + maxSize / 2
-        speed = Math.random() * maxSpeed / 2 + maxSpeed / 2
-        y = -size;
-        x = Math.random() * containerWidth
+    fun reset() {
+        speed = maxSpeed.toDouble()
     }
 
     fun update() {
-        y += speed
-        if (y > containerHeight) {
-            reset()
-        }
+        offset += speed
+    }
+
+    fun stopAnim() {
+        offset = 0.0
     }
 
     fun draw(canvas: Canvas?) {
         if (canvas == null) {
             return
         }
-        val radius = 60f
+        val radius = 18f.dpToPx()
+        val radius2 = 20f.dpToPx()
 
         val paint = Paint()
         paint.isAntiAlias = true
         paint.color = Color.WHITE
-        paint.setStrokeWidth(7F)
+        paint.setStrokeWidth(2.5F.dpToPx())
         paint.style = Paint.Style.STROKE
         paint.strokeCap = Paint.Cap.ROUND
         val path = Path()
 
-        val center_x = 120f
-        val center_y = 120f
+        val center = 34F.dpToPx()
 
-        val startAngel = -35F
-        val startAngel2 = 145F
-
-        val offset = y.toFloat()
-//        val center_x2 = 160f
-//        val center_y2 = 100f
+        val startAngelRight = -35F
+        val startAngelLeft = 145F
 
         val oval = RectF()
-        oval.set(center_x - radius, center_y - radius, center_x + radius, center_y + radius)
-//        path.addArc(oval, startAngel + y.toFloat(), 70F)
-        path.addArc(oval, startAngel, 70F)
+// правая внешняя дуга
+        oval.set(center - radius, center - radius, center + radius, center + radius)
+        path.addArc(oval, startAngelRight + offset.toFloat(), 70F)
+//        path.addArc(oval, startAngel, 70F)
 
-        oval.set(center_x - radius, center_y - radius, center_x + radius, center_y + radius)
-//        path.addArc(oval, startAngel2 + y.toFloat(), 70F)
-        path.addArc(oval, startAngel2, 70F)
+// левая внешняя дуга
+        oval.set(center - radius, center - radius, center + radius, center + radius)
+        path.addArc(oval, startAngelLeft + offset.toFloat(), 70F)
+//        path.addArc(oval, startAngel2, 70F)
 
-        val offset_one = 30
-        val offset_two = 30
+        val offsetInnerArc = 10F.dpToPx()
 
+// правая внутренняя дуга
         oval.set(
-            center_x - radius + offset_one,
-            center_y - radius + offset_one,
-            center_x + radius - offset_two,
-            center_y + radius - offset_two
+            center - radius2 + offsetInnerArc,
+            center - radius2 + offsetInnerArc,
+            center + radius2 - offsetInnerArc,
+            center + radius2 - offsetInnerArc
         )
-//        path.addArc(oval, startAngel - y.toFloat(), 90F)
-        path.addArc(oval, startAngel - 10, 90F)
+        path.addArc(oval, (startAngelRight - 10) - offset.toFloat(), 90F)
+//        path.addArc(oval, startAngel - 10, 90F)
 
+// левая внутренняя дуга
         oval.set(
-            center_x - radius + offset_one,
-            center_y - radius + offset_one,
-            center_x + radius - offset_two,
-            center_y + radius - offset_two
+            center - radius2 + offsetInnerArc,
+            center - radius2 + offsetInnerArc,
+            center + radius2 - offsetInnerArc,
+            center + radius2 - offsetInnerArc
         )
-//        path.addArc(oval, startAngel2 - y.toFloat(), 90F)
-        path.addArc(oval, startAngel2 - 10 , 90F)
-
+        path.addArc(oval, (startAngelLeft - 10) - offset.toFloat(), 90F)
+//        path.addArc(oval, startAngel2 - 10 , 90F)
 
 //        Log.e("dvsvdsvds", " y $y")
 
-
-
         val p = Paint()
         p.setColor(context.resources.getColor(R.color.darkGrey))
-        canvas.drawCircle(center_x, center_y, 120F, p)
-        canvas.drawCircle(center_x, center_y, 8F, p.apply { setColor(Color.WHITE) })
+// основной круг
+        canvas.drawCircle(center, center, center, p)
+// точка в центре круга
+        canvas.drawCircle(center, center, 2.5F.dpToPx(), p.apply { setColor(Color.WHITE) })
         canvas.drawPath(path, paint)
 
     }
 }
+
+fun Float.dpToPx(): Float = this * Resources.getSystem().displayMetrics.density

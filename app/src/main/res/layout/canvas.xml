@@ -5,8 +5,8 @@
 
     <com.juztoss.animationsdemo.fragments.SnowAnimation
         android:id="@+id/snowAnimation"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="center|start"
         android:gravity="center" />
 
@@ -23,5 +23,19 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:text="dsvsdvds" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/FloatingActionButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/FloatingActionButton2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:visibility="gone" />
 
 </FrameLayout>
